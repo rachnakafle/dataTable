@@ -9,7 +9,7 @@ const tableData = () => {
     );
   });
   return searchData;
-}
+};
 
 const createSearchInputElement = () => {
   const el = document.createElement("input");
@@ -19,11 +19,28 @@ const createSearchInputElement = () => {
 };
 
 const search = (arr, searchTerm) => {
-  if(!searchTerm) return arr;
-  return arr.filter(_row => {
-    return _row.find(_item => _item.toLowerCase().includes(searchTerm.toLowerCase()))
+  if (!searchTerm) return arr;
+  return arr.filter((_row) => {
+    return _row.find((_item) =>
+      _item.toLowerCase().includes(searchTerm.toLowerCase())
+    );
   });
-}
+};
+
+const refreshTable = (data) => {
+  const tableBody = document.getElementById("basic").children[1];
+  tableBody.innerHTML = "";
+
+  data.forEach((_row) => {
+    const curRow = document.createElement("tr");
+    _row.forEach((_dataItem) => {
+      const curCell = document.createElement("td");
+      curCell.innerText = _dataItem;
+      curRow.appendChild(curCell);
+    });
+    tableBody.appendChild(curRow);
+  });
+};
 
 const init = () => {
   document.getElementById("input").appendChild(createSearchInputElement());
@@ -35,6 +52,7 @@ const init = () => {
     // console.log(e.target.value);
     // tableData();
     console.log(search(initialTData, e.target.value));
+    refreshTable(search(initialTData, e.target.value));
   });
 };
 

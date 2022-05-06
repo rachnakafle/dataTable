@@ -1,16 +1,4 @@
-const tableData = () => {
-  const searchData = [];
-  const tableEl = document.getElementById("basic");
-  Array.from(tableEl.children[1].children).forEach((_bodyRowEl) => {
-    searchData.push(
-      Array.from(_bodyRowEl.children).map((_cellEl) => {
-        return _cellEl.innerHTML;
-      })
-    );
-  });
-  return searchData;
-};
-
+// TO CREATE A SEARCH INPUT ELEMENT
 const createSearchInputElement = () => {
   const el = document.createElement("input");
   el.classList.add("input");
@@ -27,8 +15,21 @@ const search = (arr, searchTerm) => {
   });
 };
 
+const tableData = () => {
+  const searchData = [];
+  const tableEl = document.getElementById("basic_table");
+  Array.from(tableEl.children[1].children).forEach((_bodyRowEl) => {
+    searchData.push(
+      Array.from(_bodyRowEl.children).map((_cellEl) => {
+        return _cellEl.innerHTML;
+      })
+    );
+  });
+  return searchData;
+};
+
 const refreshTable = (data) => {
-  const tableBody = document.getElementById("basic").children[1];
+  const tableBody = document.getElementById("basic_table").children[1];
   tableBody.innerHTML = "";
 
   data.forEach((_row) => {
@@ -57,3 +58,32 @@ const init = () => {
 };
 
 init();
+
+// document.querySelectorAll('th').forEach(th => th.addEventListener('click', (() => {
+//   const table = th.closest('table');
+//   const tbody = table.querySelector('tbody');
+//   Array.from(tbody.querySelectorAll('tr'))
+//     .sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc))
+//     .forEach(tr => tbody.appendChild(tr) );
+
+const sortTable = () => {
+  document.querySelectorAll("th").forEach((th) =>
+    th.addEventListener("click", () => {
+      const table = th.closest("table");
+      const tbody = table.querySelector("tbody");
+      Array.from(tbody.querySelectorAll("tr"))
+        .sort(
+          comparer(
+            Array.from(th.parentNode.children).indexOf(th),
+            (this.asc = !this.asc)
+          )
+        )
+        .forEach((tr) => tbody.appendChild(tr));
+    })
+  );
+
+  console.log("Helloooo");
+};
+
+
+
